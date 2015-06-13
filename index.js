@@ -1,67 +1,87 @@
-var path = require("path");
+var fs, path, Plugin;
 
-var TimestampWebpackPlugin = function (opts) {
-    opts = opts || {};
-    this.opts = {};
-    this.opts.path = opts.path || "";
-    this.opts.filename = opts.filename || "stats.json";
+fs = require('fs');
+path = require('path');
+
+Plugin = function(options) {
+    this.options = options || {};
+    this.options.path = options.path || '';
+    this.options.filename = options.filename || 'timestamp.json';
 };
 
-TimestampWebpackPlugin.prototype.apply = function (compiler) {
-    var self = this;
-    compiler.plugin("after-emit", function (curCompiler, callback) {
-        // FS aliases from webpack.
-        var mkdirp = compiler.outputFileSystem.mkdirp;
-        var writeFile = compiler.outputFileSystem.writeFile;
+Plugin.prototype.apply = function(compiler) {
+    var _this, output;
 
-        var date = new Date();
+    _this = this;
+    output = path.join(_this.options.path, _this.options.filename);
 
-        var months = [
-            'January', 'February', 'March', 'April',
-            'May', 'June', 'July', 'August',
-            'September', 'October', 'November', 'December'
-        ];
-        var mon = [
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-        ];
-        var month = date.getMonth();
-
-        var days = [
-            'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
-        ];
-        var d = [
-            'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
-        ];
-        var day = date.getDay();
-
-        var dateObj = {
-            date: date,
-            year: date.getFullYear(),
-            month: {
-                digit: month,
-                mon: mon[month],
-                month: months[month]
-            },
-            day: {
-                digit: day,
-                w: d[day],
-                week: days[day]
-            }
-        }
-
-        // Make directories, write file.
-        mkdirp(self.opts.path, function (err) {
-            if (err) { return callback(err); }
-
-            writeFile(
-                path.join(self.opts.path, self.opts.filename),
-                JSON.stringify(dateObj),
-                { flags: "w+" },
-                callback
-            );
-        });
+    compiler.plugin('emit', function(compiler, callback) {
+        _this.createDateObj(compiler, output);
+        callback();
     });
 };
 
-module.exports = TimestampWebpackPlugin;
+leadDecimal = function(num) {
+    newNum = num.toString();
+    if (newNum.length === 1) {
+        newNum = '0' + newNum;
+    }
+    return newNum;
+};
+
+Plugin.prototype.createDateObj = function(compiler, outputFull) {
+
+    var date,
+        m, mm, mon, months,
+        d, dd, ddd, dddd,
+        dateObj,
+        json;
+
+    date = new Date();
+
+    m = date.getMonth();
+    mm = leadDecimal(m);
+    mon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+        'Nov', 'Dec'];
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+        'August', 'September', 'October', 'November', 'December'];
+
+    d = date.getDay();
+    dd = leadDecimal(d);
+    if (dd.length === 1) {
+        dd = '0' + d;
+    }
+
+    ddd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    dddd = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+        'Saturday'];
+
+    dateObj = {
+        date: date,
+        year: date.getFullYear(),
+        month: {
+            m: m,
+            mm: mm,
+            mon: mon[m],
+            month: months[m]
+        },
+        day: {
+            d: d,
+            dd: dd,
+            ddd: ddd[d],
+            dddd: dddd[d]
+        }
+    }
+
+    json = JSON.stringify(dateObj);
+
+    fs.writeFile(outputFull, json, function(err) {
+        if (err) {
+            compiler.errors.push(new Error('Timestamp Webpack Plugin: Unable to save to ' + outputFull));
+        }
+    });
+};
+
+
+
+module.exports = Plugin;
