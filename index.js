@@ -42,7 +42,7 @@ TimestampWebpackPlugin.prototype.apply = function (compiler) {
                 digit: month,
                 mon: mon[month],
                 month: months[month]
-            }
+            },
             day: {
                 digit: day,
                 w: d[day],
