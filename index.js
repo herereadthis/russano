@@ -56,7 +56,7 @@ TimestampWebpackPlugin.prototype.apply = function (compiler) {
 
             writeFile(
                 path.join(self.opts.path, self.opts.filename),
-                JSON.stringify(dateObj);
+                JSON.stringify(dateObj),
                 { flags: "w+" },
                 callback
             );
