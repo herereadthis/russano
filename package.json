@@ -1,10 +1,10 @@
 {
   "name": "timestamp-webpack-plugin",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "author": {
     "name": "Jimmy Ha"
   },
-  "description": "generates a JSON file that contains timestamps of your Webpack build",
+  "description": "Emits a JSON file that contains timestamps of your Webpack build",
   "files": [
     "index.js"
   ],

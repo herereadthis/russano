@@ -1,6 +1,9 @@
 # Timestamp Webpack Plugin
 
-Generates a JSON file that contains a timestamp of your Webpack Build
+[![Dependency Status](https://david-dm.org/herereadthis/russano.svg)](https://david-dm.org/herereadthis/russano)
+[![npm version](https://badge.fury.io/js/timestamp-webpack-plugin.svg)](https://www.npmjs.com/package/timestamp-webpack-plugin)
+
+Emits a JSON file that contains timestamps of your Webpack build
 
 ## Install
 
@@ -34,33 +37,33 @@ new TimestampWebpackPlugin({
 
 ## Output
 
-* ```date``` returns full date
-* ```yyyy``` year, 4 digits
-* ```yy``` year, 2 digits
-* ```d``` date (0-31)
-* ```dd``` date, leading zero
-* ```M``` month (0-12)
-* ```MM```  month, leading zero
-* ```MMM``` month (abbreviated)
-* ```MMMM``` month (full name)
-* ```w``` day of the week (1-7)
-* ```ww``` day of the week, leading zero
-* ```www``` day of the week (abbreviated)
-* ```wwww``` day of the week (full name)
-* ```H``` 24-hour time (0-23)
-* ```HH``` 24-hour time, leading zero
-* ```h``` 12-hour time
-* ```hh``` 12-hour time, leading zero
-* ```a```` AM/PM designation
-* ```m```  minutes
-* ```mm``` minutes, leading zero
-* ```s``` seconds
-* ```ss``` seconds, leading zero
-* ```sss``` milliseconds
-* ```ssss``` milliseconds, leading zero
-* ```timezone``` timezone offset in minutes
+* ```date``` - returns full date
+* ```yyyy``` - year, 4 digits
+* ```yy``` - year, 2 digits
+* ```d``` - date (0-31)
+* ```dd``` - date, leading zero
+* ```M``` - month (0-12)
+* ```MM```  - month, leading zero
+* ```MMM``` - month (abbreviated)
+* ```MMMM``` - month (full name)
+* ```w``` - day of the week (1-7)
+* ```ww``` - day of the week, leading zero
+* ```www``` - day of the week (abbreviated)
+* ```wwww``` - day of the week (full name)
+* ```H``` - 24-hour time (0-23)
+* ```HH``` - 24-hour time, leading zero
+* ```h``` - 12-hour time
+* ```hh``` - 12-hour time, leading zero
+* ```a``` - AM/PM designation
+* ```m```  - minutes
+* ```mm``` - minutes, leading zero
+* ```s``` - seconds
+* ```ss``` - seconds, leading zero
+* ```sss``` - milliseconds
+* ```ssss``` - milliseconds, leading zero
+* ```timezone``` - timezone offset in minutes
 
-## Sample Output
+## Sample JSON Output
 
 (4:44pm, Saturday 13 June 2015 EST)
 
