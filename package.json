@@ -1,18 +1,11 @@
 {
-  "name": "timestamp-webpack-plugin",
+  "name": "russano",
   "version": "0.2.3",
   "author": {
     "name": "Jimmy Ha"
   },
-  "description": "Emits a JSON file that contains timestamps of your Webpack build",
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "webpack",
-    "timestamp",
-    "npm"
-  ],
+  "description": "Image managing tools",
+  "keywords": [],
   "scripts": {},
   "repository": {
     "type": "git",
